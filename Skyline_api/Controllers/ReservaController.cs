@@ -43,7 +43,12 @@ namespace Skyline_api.Controllers
           {
               return NotFound();
           }
-            var reserva = await _context.Reserva.FindAsync(id);
+            var reserva = await _context.Reserva
+                .Include(reserva => reserva.Usuario)
+                .Include(reserva => reserva.Voo)
+                .Include(reserva => reserva.Voo.Origem)
+                .Include(reserva => reserva.Voo.Destino)
+                .FirstOrDefaultAsync(r => r.id == id);
 
             if (reserva == null)
             {

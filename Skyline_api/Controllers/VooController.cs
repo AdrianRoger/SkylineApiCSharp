@@ -41,7 +41,10 @@ namespace Skyline_api.Controllers
           {
               return NotFound();
           }
-            var voo = await _context.Voo.FindAsync(id);
+            var voo = await _context.Voo
+                .Include(voo => voo.Origem)
+                .Include(voo => voo.Destino)
+                .FirstOrDefaultAsync(v => v.id == id);
 
             if (voo == null)
             {
