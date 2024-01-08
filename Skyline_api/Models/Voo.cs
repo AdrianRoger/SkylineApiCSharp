@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Skyline_api.Models
 {
@@ -16,7 +17,7 @@ namespace Skyline_api.Models
         [Column("preco_unit")]
         public double PrecoUnit {  get; set; }
         [Column("data_partida")]
-        public DateOnly DataPartida { get; set; }
+        public DateTime DataPartida { get; set; }
         
         [ForeignKey("OrigemId")]
         [Column("origem_id")]
@@ -28,6 +29,7 @@ namespace Skyline_api.Models
         public int DestinoId { get; set; }
         public Cidade Destino { get; set; }
 
+        [JsonIgnore]
         public List<Reserva> ReservasVoo { get; set; }
     }
 }

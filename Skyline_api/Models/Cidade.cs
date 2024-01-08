@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Skyline_api.Models
 {
@@ -16,7 +17,9 @@ namespace Skyline_api.Models
         [Column("aeroporto")]
         public string Aeroporto { get; set; }
 
+        [JsonIgnore]
         public List<Voo> VoosOrigem { get; set; }
+        [JsonIgnore]
         public List<Voo> VoosDestino { get; set; }
 
     }

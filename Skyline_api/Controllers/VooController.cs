@@ -25,11 +25,12 @@ namespace Skyline_api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Voo>>> GetVoo()
         {
-          if (_context.Voo == null)
-          {
-              return NotFound();
-          }
-            return await _context.Voo.ToListAsync();
+          var voo = await _context.Voo
+                .Include(voo => voo.Origem)
+                .Include(voo => voo.Destino)
+                .ToListAsync();
+
+            return voo;
         }
 
         // GET: api/Voo/5

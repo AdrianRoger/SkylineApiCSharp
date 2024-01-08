@@ -9,7 +9,7 @@ namespace Skyline_api.Models
         public int id { get; set; }
 
         [Column("data_reserva")]
-        public DateOnly DataReserva { get; set; }
+        public DateTime DataReserva { get; set; }
 
         [Column("num_pessoas")]
         public int NumPessoas { get; set; }
@@ -20,9 +20,11 @@ namespace Skyline_api.Models
         [ForeignKey("UsuarioCpf")]
         [Column("usuario_cpf")]
         public string UsuarioCpf { get; set; }
+        public Usuario Usuario { get; set; }
 
         [ForeignKey("VooId")]
         [Column("voo_id")]
         public int VooId { get; set; }
+        public Voo Voo { get; set; }
     }
 }

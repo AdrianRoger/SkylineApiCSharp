@@ -25,11 +25,14 @@ namespace Skyline_api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Reserva>>> GetReserva()
         {
-          if (_context.Reserva == null)
-          {
-              return NotFound();
-          }
-            return await _context.Reserva.ToListAsync();
+            var reserva = await _context.Reserva
+                 .Include(reserva => reserva.Usuario)
+                 .Include(reserva => reserva.Voo)
+                 .Include(reserva => reserva.Voo.Origem)
+                 .Include(reserva => reserva.Voo.Destino)
+                 .ToListAsync();
+
+            return reserva;
         }
 
         // GET: api/Reserva/5

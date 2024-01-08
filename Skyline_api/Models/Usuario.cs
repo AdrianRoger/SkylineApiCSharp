@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Skyline_api.Models
 {
@@ -35,6 +36,7 @@ namespace Skyline_api.Models
         [Column("ativo")]
         public bool? Ativo { get; set; }
 
-        public List<Reserva> UsuariosReserva { get; set; }
+        [JsonIgnore]
+        public List<Reserva> Reservas { get; set; }
     }
 }
