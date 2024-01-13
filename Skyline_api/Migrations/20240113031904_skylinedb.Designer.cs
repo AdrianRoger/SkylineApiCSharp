@@ -11,8 +11,8 @@ using Skyline.Context;
 namespace Skyline_api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240108005901_SkylineDB")]
-    partial class SkylineDB
+    [Migration("20240113031904_skylinedb")]
+    partial class skylinedb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -49,7 +49,7 @@ namespace Skyline_api.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("Cidade");
+                    b.ToTable("CIDADE");
                 });
 
             modelBuilder.Entity("Skyline_api.Models.Reserva", b =>
@@ -64,8 +64,8 @@ namespace Skyline_api.Migrations
                         .HasDefaultValue(false)
                         .HasColumnName("cancelada");
 
-                    b.Property<DateOnly>("DataReserva")
-                        .HasColumnType("date")
+                    b.Property<DateTime>("DataReserva")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("data_reserva");
 
                     b.Property<int>("NumPessoas")
@@ -87,7 +87,7 @@ namespace Skyline_api.Migrations
 
                     b.HasIndex("VooId");
 
-                    b.ToTable("Reserva");
+                    b.ToTable("RESERVA");
                 });
 
             modelBuilder.Entity("Skyline_api.Models.Usuario", b =>
@@ -140,7 +140,7 @@ namespace Skyline_api.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("Usuario");
+                    b.ToTable("USUARIO");
                 });
 
             modelBuilder.Entity("Skyline_api.Models.Voo", b =>
@@ -158,8 +158,8 @@ namespace Skyline_api.Migrations
                         .HasColumnType("longtext")
                         .HasColumnName("comp_aerea");
 
-                    b.Property<DateOnly>("DataPartida")
-                        .HasColumnType("date")
+                    b.Property<DateTime>("DataPartida")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("data_partida");
 
                     b.Property<int>("DestinoId")
@@ -184,7 +184,7 @@ namespace Skyline_api.Migrations
 
                     b.HasIndex("OrigemId");
 
-                    b.ToTable("Voo");
+                    b.ToTable("VOO");
                 });
 
             modelBuilder.Entity("Skyline.Models.Contato", b =>
@@ -222,22 +222,26 @@ namespace Skyline_api.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("Contato");
+                    b.ToTable("CONTATO");
                 });
 
             modelBuilder.Entity("Skyline_api.Models.Reserva", b =>
                 {
-                    b.HasOne("Skyline_api.Models.Usuario", null)
-                        .WithMany("UsuariosReserva")
+                    b.HasOne("Skyline_api.Models.Usuario", "Usuario")
+                        .WithMany("Reservas")
                         .HasForeignKey("UsuarioCpf")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Skyline_api.Models.Voo", null)
+                    b.HasOne("Skyline_api.Models.Voo", "Voo")
                         .WithMany("ReservasVoo")
                         .HasForeignKey("VooId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Usuario");
+
+                    b.Navigation("Voo");
                 });
 
             modelBuilder.Entity("Skyline_api.Models.Voo", b =>
@@ -268,7 +272,7 @@ namespace Skyline_api.Migrations
 
             modelBuilder.Entity("Skyline_api.Models.Usuario", b =>
                 {
-                    b.Navigation("UsuariosReserva");
+                    b.Navigation("Reservas");
                 });
 
             modelBuilder.Entity("Skyline_api.Models.Voo", b =>

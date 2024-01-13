@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Skyline_api.Migrations
 {
-    public partial class SkylineDB : Migration
+    public partial class skylinedb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,7 +14,7 @@ namespace Skyline_api.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Cidade",
+                name: "CIDADE",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
@@ -30,12 +30,12 @@ namespace Skyline_api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cidade", x => x.id);
+                    table.PrimaryKey("PK_CIDADE", x => x.id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Contato",
+                name: "CONTATO",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
@@ -52,12 +52,12 @@ namespace Skyline_api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Contato", x => x.id);
+                    table.PrimaryKey("PK_CONTATO", x => x.id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Usuario",
+                name: "USUARIO",
                 columns: table => new
                 {
                     cpf = table.Column<string>(type: "varchar(255)", nullable: false)
@@ -79,12 +79,12 @@ namespace Skyline_api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Usuario", x => x.cpf);
+                    table.PrimaryKey("PK_USUARIO", x => x.cpf);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Voo",
+                name: "VOO",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
@@ -94,35 +94,35 @@ namespace Skyline_api.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     assentos = table.Column<int>(type: "int", nullable: false),
                     preco_unit = table.Column<double>(type: "double", nullable: false),
-                    data_partida = table.Column<DateOnly>(type: "date", nullable: false),
+                    data_partida = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     origem_id = table.Column<int>(type: "int", nullable: false),
                     destino_id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Voo", x => x.id);
+                    table.PrimaryKey("PK_VOO", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Voo_Cidade_destino_id",
+                        name: "FK_VOO_CIDADE_destino_id",
                         column: x => x.destino_id,
-                        principalTable: "Cidade",
+                        principalTable: "CIDADE",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Voo_Cidade_origem_id",
+                        name: "FK_VOO_CIDADE_origem_id",
                         column: x => x.origem_id,
-                        principalTable: "Cidade",
+                        principalTable: "CIDADE",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Reserva",
+                name: "RESERVA",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    data_reserva = table.Column<DateOnly>(type: "date", nullable: false),
+                    data_reserva = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     num_pessoas = table.Column<int>(type: "int", nullable: false),
                     cancelada = table.Column<bool>(type: "tinyint(1)", nullable: true, defaultValue: false),
                     usuario_cpf = table.Column<string>(type: "varchar(255)", nullable: false)
@@ -131,65 +131,65 @@ namespace Skyline_api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Reserva", x => x.id);
+                    table.PrimaryKey("PK_RESERVA", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Reserva_Usuario_usuario_cpf",
+                        name: "FK_RESERVA_USUARIO_usuario_cpf",
                         column: x => x.usuario_cpf,
-                        principalTable: "Usuario",
+                        principalTable: "USUARIO",
                         principalColumn: "cpf",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Reserva_Voo_voo_id",
+                        name: "FK_RESERVA_VOO_voo_id",
                         column: x => x.voo_id,
-                        principalTable: "Voo",
+                        principalTable: "VOO",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reserva_usuario_cpf",
-                table: "Reserva",
+                name: "IX_RESERVA_usuario_cpf",
+                table: "RESERVA",
                 column: "usuario_cpf");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reserva_voo_id",
-                table: "Reserva",
+                name: "IX_RESERVA_voo_id",
+                table: "RESERVA",
                 column: "voo_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Usuario_email",
-                table: "Usuario",
+                name: "IX_USUARIO_email",
+                table: "USUARIO",
                 column: "email",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Voo_destino_id",
-                table: "Voo",
+                name: "IX_VOO_destino_id",
+                table: "VOO",
                 column: "destino_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Voo_origem_id",
-                table: "Voo",
+                name: "IX_VOO_origem_id",
+                table: "VOO",
                 column: "origem_id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Contato");
+                name: "CONTATO");
 
             migrationBuilder.DropTable(
-                name: "Reserva");
+                name: "RESERVA");
 
             migrationBuilder.DropTable(
-                name: "Usuario");
+                name: "USUARIO");
 
             migrationBuilder.DropTable(
-                name: "Voo");
+                name: "VOO");
 
             migrationBuilder.DropTable(
-                name: "Cidade");
+                name: "CIDADE");
         }
     }
 }

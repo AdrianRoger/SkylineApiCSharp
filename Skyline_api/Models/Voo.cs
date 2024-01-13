@@ -4,6 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Skyline_api.Models
 {
+    [Table("VOO")]
     public class Voo
     {
         [Key]

@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Skyline_api.Models
 {
+    [Table("RESERVA")]
     public class Reserva
     {
         [Key]

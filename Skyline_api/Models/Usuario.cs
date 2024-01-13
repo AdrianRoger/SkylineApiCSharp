@@ -6,6 +6,7 @@ using System.Text.Json.Serialization;
 
 namespace Skyline_api.Models
 {
+    [Table("USUARIO")]
     public class Usuario
     {
         [Key]
